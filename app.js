@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 // Cargamos las rutas
-app.use('/api', mutant);
+app.use('/', mutant);
 
 // exportamos este módulo para poder usar la variable app fuera de este archivo
 module.exports = app;
