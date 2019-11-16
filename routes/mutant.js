@@ -9,9 +9,7 @@ var MutantsController = require('../controllers/mutants');
 // Llamamos al router
 var api = express.Router();
 
-console.log(MutantsController);
-
-// api.get('/mutant/:id', MutantsController.get);
+api.get('/mutant/:id', MutantsController.get);
 
 // Exportamos la configuración
 module.exports = api;

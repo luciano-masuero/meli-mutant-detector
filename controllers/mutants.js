@@ -3,9 +3,12 @@
 // Cargamos los modelos para usarlos posteriormente
 var Mutant = require('../models/mutant');
 
-// Conseguir datos de un usuario
 
-function get(req, res){
-    var userId = req.params.id;
+module.exports.get = function(req, res) {
 
+    return res.status(200).send({
+        success: 'true',
+        message: 'todos retrieved successfully',
+    });
 }
+
