@@ -65,13 +65,10 @@ MutantSchema.statics.isMutant = function(dna)
     avoidPossitionsInDiretions['down']                  = [];
     avoidPossitionsInDiretions['left-oblique-down']     = [];
 
-    utils.log("OccurrencesCounter: " + occurrencesCounter);
-    utils.log("MinimunOccurrences: " + minimunOccurrences);
-
     while ((i < dnaMatrix.length) && (occurrencesCounter < minimunOccurrences)) {
 
         j = 0;
-        
+
         while ((j < dnaMatrix[0].length) && (occurrencesCounter < minimunOccurrences)) {
 
             occurrencesCounter += searchInDirection(dnaMatrix, i, j, 'right');
@@ -79,16 +76,8 @@ MutantSchema.statics.isMutant = function(dna)
             occurrencesCounter += searchInDirection(dnaMatrix, i, j, 'down');
             occurrencesCounter += searchInDirection(dnaMatrix, i, j, 'left-oblique-down');
 
-            utils.log("+++++++++++++++++++++++++++++++");
-            utils.log("+++++++++++++++++++++++++++++++");
-            utils.log("+++++++++++++++++++++++++++++++");
-
             j++;
         }
-
-        utils.log("//////////////////////////////////");
-        utils.log("//////////////////////////////////");
-        utils.log("//////////////////////////////////");
 
         i++;
     }
@@ -98,10 +87,6 @@ MutantSchema.statics.isMutant = function(dna)
 
 function searchInDirection(matrix, row, col, direction)
 {
-    utils.log("----------------------------------");
-    utils.log("----------------------------------");
-    utils.log("----------------------------------");
-
     utils.log("Row: " + row + "  ---  Col: " + col + "  ---  Direction: " + direction);
 
     // This is to avoid doing the check on each call

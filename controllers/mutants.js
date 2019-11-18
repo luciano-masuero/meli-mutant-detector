@@ -9,8 +9,6 @@ module.exports.isMutant = function(req, res) {
     if (req.body && req.body.dna) {
         var dna = req.body.dna;
 
-        console.log(dna);
-
         if (Array.isArray(dna)) {
             if (Mutant.isMutant(dna)) {
                 return res.status(200).send('Ok');
