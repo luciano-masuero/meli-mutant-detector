@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 
 // Le indicamos a Mongoose que haremos la conexión con Promesas
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // Usamos el método connect para conectarnos a nuestra base de datos
 mongoose.connect("mongodb://" + config.mongo.domain + ":" + config.mongo.port + "/" + config.mongo.db,  { useNewUrlParser: true, useUnifiedTopology: true, })
