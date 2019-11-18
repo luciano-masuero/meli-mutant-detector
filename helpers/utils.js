@@ -1,6 +1,6 @@
 'use strict'
 
-const { debug } = require('../config');
+const { config } = require('../config');
 
 
 /**
@@ -34,7 +34,7 @@ module.exports.createMatrix = function(stringArray) {
  * @returns {Array}
  */
 module.exports.log = function(string) {
-    if (debug) {
+    if (config.debug) {
         console.log(string);
     }
 };

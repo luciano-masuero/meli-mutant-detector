@@ -1,25 +1,24 @@
 'use strict'
 
+const { config } = require('./config');
+
 // Cargamos el módulo de mongoose para poder conectarnos a MongoDB
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var app = require('./app');
-
-// Creamos la variable PORT para indicar el puerto en el que va a funcionar el servidor
-var port = 3800;
+const app = require('./app');
 
 // Le indicamos a Mongoose que haremos la conexión con Promesas
 mongoose.Promise = global.Promise;
 
 // Usamos el método connect para conectarnos a nuestra base de datos
-mongoose.connect('mongodb://localhost:27017/mutant-detector',  { useNewUrlParser: true, useUnifiedTopology: true, })
+mongoose.connect("mongodb://" + config.mongo.domain + ":" + config.mongo.port + "/" + config.mongo.db,  { useNewUrlParser: true, useUnifiedTopology: true, })
     .then(() => {
         // Cuando se realiza la conexión, lanzamos este mensaje por consola
-        console.log("La conexión a la base de datos mutant-detector se ha realizado correctamente")
+        console.log("La conexión a la base de datos " + config.mongo.db + " se ha realizado correctamente")
 
         // CREAR EL SERVIDOR WEB CON NODEJS
-        app.listen(port, () => {
-            console.log("Servidor corriendo en http://localhost:3800");
+        app.listen(config.app.port, () => {
+            console.log("Servidor corriendo en " + config.app.domain + ":" + config.app.port);
         });
     })
     // Si no se conecta correctamente escupimos el error

@@ -1,3 +1,14 @@
 {
-  "debug": false
+  "config": {
+    "debug" : false,
+    "app" : {
+      "domain" : "localhost",
+      "port": 3800
+    },
+    "monggo" : {
+      "domain" : "localhost",
+      "port" : 27017,
+      "db": "mutant-detector"
+    }
+  }
 }
