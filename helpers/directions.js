@@ -2,25 +2,35 @@
 
 
 /**
- * Receives an array of strings and returns the
- * matrix generated
+ * Directions to search on matrix
  *
- * @param stringArray
- * @returns {Array}
+ * @type Json
  */
-module.exports.createMatrix = function(stringArray) {
+module.exports.directions = {
 
-    var matrix = [];
-    var x = stringArray.length;
-    var y = stringArray[0].length;
+    // Right direction
+    'right' : {
+        'col'   : 1,
+        'row'   : 0
+    },
 
-    for (var i = 0; i < x; i++) {
-        matrix[i] = [];
-        for (var j = 0; j < y; j++) {
-            matrix[i][j] = stringArray[i][j];
-        }
-    }
+    // Right oblique down direction
+    'right-oblique-down' : {
+        'col'   : 1,
+        'row'   : 1
+    },
 
-    return matrix;
-}
+    // Down direction
+    'down' : {
+        'col'   : 0,
+        'row'   : 1
+    },
+
+    // Left oblique down direction
+    'left-oblique-down' : {
+        'col'   : -1,
+        'row'   : 1
+    },
+
+};
 
