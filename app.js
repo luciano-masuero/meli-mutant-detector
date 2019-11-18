@@ -1,14 +1,14 @@
 'use strict'
 
 // Cargamos los módulos de express y body-parser
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 
 // Llamamos a express para poder crear el servidor
-var app = express();
+const app = express();
 
 // Importamos las rutas
-var mutant = require('./routes/mutant');
+const mutant = require('./routes/mutant');
 
 
 //Middlewares

@@ -1,14 +1,22 @@
 'use strict'
 
 // Cargamos los modelos para usarlos posteriormente
-var Mutant = require('../models/mutant');
+const Mutant = require('../models/mutant');
 
 
-module.exports.get = function(req, res) {
+module.exports.isMutant = function(req, res) {
 
-    return res.status(200).send({
-        success: 'true',
-        message: 'todos retrieved successfully',
-    });
-}
+    if (req.body && req.body.dna) {
+        var dna = req.body.dna;
+
+        if (Array.isArray(dna)) {
+            if (Mutant.isMutant(dna)) {
+                return res.status(200).send('Ok');
+            }
+        }
+    }
+
+    return res.status(300).send('Forbidden');
+
+};
 
