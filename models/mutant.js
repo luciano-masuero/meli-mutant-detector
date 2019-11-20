@@ -35,7 +35,8 @@ var avoidPossitionsInDiretions;
 
 // Create mutant schema
 const MutantSchema = Schema({
-
+    flattedDna : String,
+    dna: [String]
 });
 
 /**

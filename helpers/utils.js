@@ -26,6 +26,24 @@ module.exports.createMatrix = function(stringArray) {
     return matrix;
 };
 
+/**
+ * Receives an array of strings and returns the
+ * string with concatentated values
+ *
+ * @param stringArray
+ * @returns {string}
+ */
+module.exports.flattenArray = function(stringArray) {
+
+    var flattenArray = "";
+    var x = stringArray.length;
+
+    for (var i = 0; i < x; i++) {
+        flattenArray += stringArray[i];
+    }
+
+    return flattenArray;
+};
 
 /**
  * If we are on debug mode then log

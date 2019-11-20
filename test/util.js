@@ -36,5 +36,22 @@ describe('Utils', function() {
 
             assert.deepEqual(utils.createMatrix(dna), matrix);
         });
+
+
+    });
+
+    describe('flattenArray', function() {
+
+        it('Should return the string of the flattened array of strings', function() {
+
+            var stringArray = [
+                "AT",
+                "CG"
+            ];
+            var flattenArray = "ATCG";
+
+            assert.equal(utils.flattenArray(stringArray), flattenArray);
+        });
+
     });
 });
