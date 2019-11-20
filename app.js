@@ -10,6 +10,9 @@ const app = express();
 // Importamos las rutas
 const mutant = require('./routes/mutant');
 
+// Create human and mutant counters if does not exist
+const seedCounter = require('./seeds/counter');
+seedCounter.seed();
 
 //Middlewares
 

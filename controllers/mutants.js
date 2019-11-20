@@ -2,9 +2,7 @@
 
 // Cargamos los modelos para usarlos posteriormente
 const Mutant = require('../models/mutant');
-
-const async = require('async');
-
+const Counter = require('../models/counter');
 
 var utils = require('../helpers/utils');
 
@@ -28,6 +26,7 @@ module.exports.isMutant = async function(req, res) {
         var mutant = await Mutant.findOne({ flattedDna: flattenDna });
 
         if (mutant) {
+            Counter.mutantDetected();
             utils.log("DNA is already on db so its valid");
             return res.status(200).send('Ok');
         }
@@ -36,6 +35,7 @@ module.exports.isMutant = async function(req, res) {
 
         // Check for this new mutant detection
         if (!Mutant.isMutant(dna)) {
+            Counter.humanDetected();
             utils.log("DNA does not belong to mutant");
             return res.status(403).send('Forbidden');
         }
@@ -52,6 +52,7 @@ module.exports.isMutant = async function(req, res) {
 
         await newMutant.save();
         utils.log("New Mutant saved at db");
+        Counter.mutantDetected();
 
         return res.status(200).send('Ok');
 
