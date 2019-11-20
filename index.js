@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 
 const app = require('./app');
 
+console.info("Remember to run NVM use!");
+
 // Le indicamos a Mongoose que haremos la conexión con Promesas
 // mongoose.Promise = global.Promise;
 

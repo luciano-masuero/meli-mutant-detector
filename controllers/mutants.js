@@ -8,83 +8,55 @@ const async = require('async');
 
 var utils = require('../helpers/utils');
 
-module.exports.isMutant = function(req, res) {
+module.exports.isMutant = async function(req, res) {
 
-    if (req.body && req.body.dna) {
+    try {
+
+        if (!req.body || !req.body.dna) {
+            return res.status(403).send('Forbidden');
+        }
+
         var dna = req.body.dna;
 
         // Check that we have received a proper array
-        if (Array.isArray(dna)) {
-
-            var flattenDna = utils.flattenArray(dna);
-
-            async.waterfall([
-
-                // Get the mutant
-                function(callback) {
-                    Mutant.findOne(
-                        { flattedDna: flattenDna },
-                        (error, mutant) => {
-                            if (error) {
-                                callback(true, 500, error.message);
-                            }
-
-                            utils.log("Buscando en db el DNA");
-                            return callback(null, mutant);
-                        }
-                    );
-                },
-
-                // If not exist on DB then check if its valid
-                function(mutant, callback) {
-
-                    if (mutant) {
-                        utils.log("DNA is already on db so its valid");
-                        return callback(true, 200, "Ok");
-                    }
-
-                    // Check for this new mutant detection
-                    if (Mutant.isMutant(dna)) {
-
-                        //Save the mutant DNA
-                        var mutant = new Mutant(
-                            {
-                                flattedDna : flattenDna,
-                                dna: dna
-                            }
-                        );
-
-                        utils.log("Es mutante");
-                        return callback(null, mutant);
-
-                    } else {
-                        utils.log("No Es mutante");
-                        return callback(true, 403, 'Forbidden');
-                    }
-                },
-
-                // Save new mutant
-                function(newMutant, callback) {
-
-                    newMutant.save(
-                        (error, newMutant) => {
-                            if (error) {
-                                callback(true, 500, error.message);
-                            }
-
-                            utils.log("New Mutant saved at db");
-                            return  callback(true, 200, "ok");
-                        }
-                    );
-                },],
-
-                function(end, code, message) {
-                    return res.status(code).send(message);
-                }
-            );
+        if (!Array.isArray(dna)) {
+            return res.status(403).send('Forbidden');
         }
-    } else {
+
+        var flattenDna = utils.flattenArray(dna);
+
+        var mutant = await Mutant.findOne({ flattedDna: flattenDna });
+
+        if (mutant) {
+            utils.log("DNA is already on db so its valid");
+            return res.status(200).send('Ok');
+        }
+
+        utils.log("DNA does not exist in DB so we have to check it");
+
+        // Check for this new mutant detection
+        if (!Mutant.isMutant(dna)) {
+            utils.log("DNA does not belong to mutant");
+            return res.status(403).send('Forbidden');
+        }
+
+        utils.log("DNA belongs to a new mutant!");
+
+        //Save the mutant DNA
+        var newMutant = new Mutant(
+            {
+                flattedDna : flattenDna,
+                dna: dna
+            }
+        );
+
+        await newMutant.save();
+        utils.log("New Mutant saved at db");
+
+        return res.status(200).send('Ok');
+
+    } catch (error) {
         return res.status(403).send('Forbidden');
     }
-};
 
+};
