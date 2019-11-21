@@ -42,3 +42,29 @@ To run tests just go to project folder and run
     ```bash 
     npm test 
     ```
+## Available endpoints:
+
+### Detect Mutant
+```bash 
+POST /mutant/
+Content-Type: application/json
+```
+Body Example:
+```bash 
+
+{
+    "dna": [
+        "ATGGT",
+        "CGCRT",
+        "CGGAT",
+        "CTGAT",
+        "CCCCA"
+    ]
+}
+
+```
+
+### Check Stats
+```bash 
+GET /stats
+
