@@ -21,6 +21,13 @@ const requiredRepetitions = 4;
 const minimunOccurrences = 2;
 
 /**
+ * Valid possible DNA Values
+ *
+ * @type {string[]}
+ */
+const validValues = ['A', 'T', 'C', 'G'];
+
+/**
  * Occurrences counter
  *
  * @type {number}
@@ -103,6 +110,11 @@ function searchInDirection(matrix, row, col, direction)
 
     var currentValue = matrix[row][col];
     utils.log("Current Value: " + currentValue);
+
+    if (validValues.indexOf(currentValue) === -1) {
+        utils.log("Current Value is not a valid one");
+        return 0;
+    }
 
     // We start in next position based on direction
     var currentRow = row + directions[direction]['row'];
